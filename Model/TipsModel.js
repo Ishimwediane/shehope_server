@@ -11,6 +11,10 @@ const TipSchema = new mongoose.Schema({
       enum: ["first", "second", "third"],
       required: true,
     },
+    icon:
+     { type: String, default: "" 
+      
+     }, // New field for tip icon
   createdAt: 
   {
      type: Date, 

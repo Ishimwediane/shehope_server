@@ -8,6 +8,7 @@ import blogTipRoutes from './Routes/BlogTipRoutes.js';
 import eventRoutes from './Routes/Event.Routes.js'; // ✅ Event routes
 import communityRoutes from './Routes/Community.Routes.js';
 import adminRoutes from './Routes/Admin.js'; // Import the admin routes
+import donationRoutes from './Routes/Donation.js';
 
 
 import errorHandler from './Middlewares/errorHandler.js';
@@ -30,6 +31,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(errorHandler);
+app.use('/uploads', express.static('uploads'));
 
 // ✅ Routes
 app.use('/api/user', UserRoutes);
@@ -39,6 +41,7 @@ app.use("/api", blogTipRoutes);
 app.use("/api/events", eventRoutes);
 app.use('/api/posts', communityRoutes);
 app.use("/api/admin", adminRoutes); // Add the admin routes
+app.use('/api/donations', donationRoutes);
 app.get('/', (req, res) => {
   res.send('Welcome to SheHope API!');
 });

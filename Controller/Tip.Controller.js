@@ -4,12 +4,12 @@ import User from "../Model/UserModel.js";
 // Create a new tip
 export const createTip = async (req, res) => {
   try {
-    const { message, trimester } = req.body;
+    const { message, trimester,icon } = req.body;
     if (!message || !trimester) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const newTip = await Tip.create({ message, trimester });
+    const newTip = await Tip.create({ message, trimester,icon });
     res.status(201).json(newTip);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.toString() });

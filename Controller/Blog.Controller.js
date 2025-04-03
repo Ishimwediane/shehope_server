@@ -14,7 +14,7 @@ export const uploadMiddleware = upload.single("image");
 // Create Blog Post
 export const createBlog = async (req, res) => {
   try {
-    const { title, content, trimester, image } = req.body;
+    const { title, content, trimester, image,link } = req.body;
 
     // Check if required fields are provided
     if (!title || !content || !trimester) {
@@ -28,6 +28,7 @@ export const createBlog = async (req, res) => {
     const newBlog = await Blog.create({
       title,
       content,
+      link,
       image: uploadedImageUrl,
       trimester,
     });

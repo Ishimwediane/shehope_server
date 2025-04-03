@@ -20,6 +20,11 @@ const BlogSchema = new mongoose.Schema({
       enum: ["first", "second", "third"],
       required: true,
     }, 
+    link: 
+    { 
+      type: String, default: ""
+
+     }, // New field for external link
   createdAt: 
   { 
     type: Date, 
