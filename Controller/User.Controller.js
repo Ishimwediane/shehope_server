@@ -89,6 +89,7 @@ export const Login = async (req, res) => {
         _id: user._id,
         name:user.name,
         email: user.email,
+        isAdmin: user.isAdmin, // Return admin flag
         tokens: { accessToken },
       };
       
@@ -121,6 +122,9 @@ export const getUserById = async (req, res) => {
 
 
 // In the user controller (for example, UserController.js)
+
+
+// Update user
 // In your user controller
 export const updateUser = async (req, res) => {
   try {
@@ -140,3 +144,51 @@ export const updateUser = async (req, res) => {
   }
 };
 
+
+export const registerAdmin = async (req, res) => {
+  try {
+    const { name, last_name, email, password, date_of_birth } = req.body;
+  
+    // Check if required fields are provided (Admin doesn't need 'trimester')
+    if (!name || !email || !password || !date_of_birth || !last_name) {
+      return res.status(400).json({ message: "Name, last_name, email, password, and date_of_birth are required" });
+    }
+
+    // Check if the email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);  // Salt rounds = 10
+  
+    // Create the new admin user with validated and hashed data
+    const admin = new User({
+      name,
+      last_name,
+      email,
+      password: hashedPassword,
+      date_of_birth,
+      isAdmin: true,  // Set admin flag to true
+    });
+  
+    // Generate access token for the admin
+    admin.tokens.accessToken = generateAccessToken(admin);
+    await admin.save();
+  
+    // Send response with created admin and access token
+    res.status(201).json({
+      message: "Admin created successfully!",
+      user: {
+        ...admin.toObject(),
+        tokens: {
+          accessToken: admin.tokens.accessToken,
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Error during admin registration:", error);  // Log for debugging
+    res.status(500).json({ message: "Failed to register admin", error: error.message });
+  }
+};

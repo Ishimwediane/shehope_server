@@ -1,56 +1,58 @@
 import mongoose from "mongoose";
-const {model,Schema} =mongoose;
-const userSchema =Schema(
-    {
+const { model, Schema } = mongoose;
+
+const userSchema = new Schema(
+  {
     name: { 
-        type: String, 
-        required: true
+      type: String, 
+      required: true
     },
     last_name: { 
-        type: String, 
-        required: true
+      type: String, 
+      required: true
     },
-      email: { 
-        type: String, 
-        unique: true, 
-        required: true 
+    email: { 
+      type: String, 
+      unique: true, 
+      required: true 
     },
-      password: { 
-        type: String, 
-        required: true 
+    password: { 
+      type: String, 
+      required: true 
     },
-     
-      date_of_birth: {
-         type: Date,
-         required:true
-        },
-      location: { 
-        type: String 
+    date_of_birth: {
+      type: Date,
+      required: true
     },
-     
-      trimester: {
-         type: String,
-          enum: ["first", "second", "third"], 
-         required:true
-        
-        },
-      emergency_contact: {
-         type: String 
-        }, // Optional emergency contact number
-      profile_picture: { 
-        type: String 
-    }, // URL of the profile picture
-      bio: { 
-        type: String 
-    }, 
-      createdAt: { type: Date, default: Date.now },
-      tokens: {
-        accessToken: { type: String },  // <-- Add this to store the token
-      },
+    location: { 
+      type: String 
     },
-    { timestamps: true }
-  );
-  
-  const User = model("User", userSchema);
- export default User;
-  
+    trimester: {
+      type: String,
+      enum: ["first", "second", "third"],
+      required: function() {
+        return !this.isAdmin; // Make trimester required only if the user is not an admin
+      }
+    },
+    emergency_contact: {
+      type: String 
+    },
+    profile_picture: { 
+      type: String 
+    },
+    bio: { 
+      type: String 
+    },
+    
+    isAdmin: { type: Boolean, default: false }, // Admin flag
+    createdAt: { type: Date, default: Date.now },
+    tokens: {
+      accessToken: { type: String },  // Add this to store the token
+    },
+  },
+  { timestamps: true }
+);
+
+// Avoid overwriting the User model
+const User = mongoose.models.User || model("User", userSchema);
+export default User;

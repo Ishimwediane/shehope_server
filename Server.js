@@ -6,7 +6,9 @@ import tipRoutes from "./Routes/Tips.Routes.js";
 import blogRoutes from './Routes/Blog.Routes.js';
 import blogTipRoutes from './Routes/BlogTipRoutes.js';
 import eventRoutes from './Routes/Event.Routes.js'; // ✅ Event routes
-import commentRoutes from './Routes/commentRoutes.js'
+import communityRoutes from './Routes/Community.Routes.js';
+import adminRoutes from './Routes/Admin.js'; // Import the admin routes
+
 
 import errorHandler from './Middlewares/errorHandler.js';
 import cors from "cors";
@@ -34,7 +36,12 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/tips", tipRoutes);
 app.use("/api", blogTipRoutes);
 app.use("/api/events", eventRoutes);
-app.use("/api/comments", commentRoutes); // Add the comment routes here
+app.use('/api/posts', communityRoutes);
+app.use("/api/admin", adminRoutes); // Add the admin routes
+app.get('/', (req, res) => {
+  res.send('Welcome to SheHope API!');
+});
+
 
 
 app.listen(port, () => {

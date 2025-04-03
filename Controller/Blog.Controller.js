@@ -9,49 +9,36 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 export const uploadMiddleware = upload.single("image");
 
+
+
 // Create Blog Post
 export const createBlog = async (req, res) => {
   try {
-    const { title, content, trimester } = req.body;
+    const { title, content, trimester, image } = req.body;
+
+    // Check if required fields are provided
     if (!title || !content || !trimester) {
       return res.status(400).json({ message: "Title, content, and trimester are required" });
     }
 
-    let uploadedImageUrl = "https://res.cloudinary.com/dfe7ue90j/image/upload/v1741710271/first_semester_nt69qn.jpg";
+    // If no image is provided, set a default image URL
+    let uploadedImageUrl = image || "https://res.cloudinary.com/dfe7ue90j/image/upload/v1741710271/first_semester_nt69qn.jpg";
 
-    if (req.file) {
-      try {
-        const stream = Readable.from(req.file.buffer);
-        const cloudinaryUpload = new Promise((resolve, reject) => {
-          const cloudinaryStream = cloudinary.uploader.upload_stream(
-            { folder: "images", resource_type: "auto" },
-            (error, result) => {
-              if (error) reject(error);
-              else resolve(result);
-            }
-          );
-          stream.pipe(cloudinaryStream);
-        });
-
-        const cloudinaryResponse = await cloudinaryUpload;
-        uploadedImageUrl = cloudinaryResponse.secure_url;
-      } catch (cloudinaryError) {
-        return res.status(500).json({ message: "Error uploading image", error: cloudinaryError });
-      }
-    }
-
+    // Create a new blog post with the provided data
     const newBlog = await Blog.create({
       title,
       content,
       image: uploadedImageUrl,
-      trimester, // ✅ Save trimester
+      trimester,
     });
 
+    // Return the created blog post
     res.status(201).json(newBlog);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.toString() });
   }
 };
+
 
 
 // Get All Blogs

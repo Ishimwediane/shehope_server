@@ -10,9 +10,11 @@ export const generateAccessToken = (user) => {
       _id: user._id,
       email: user.email,
       name: user.name,
+     
+      isAdmin: user.isAdmin, // Include admin flag
     },
     process.env.JWT_SECRET,
-    { expiresIn: "4h" } // Access token expires in 4 hours
+    { expiresIn: "24h" } // Access token expires in 4 hours
   );
 };
 
