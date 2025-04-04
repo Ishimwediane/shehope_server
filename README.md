@@ -1,6 +1,4 @@
-Certainly! Here's a comprehensive **README.md** template tailored for the **SheHope Backend** project. This template is designed to provide clear guidance on setting up, using, and contributing to your backend application.
 
----
 
 # SheHope Backend
 
