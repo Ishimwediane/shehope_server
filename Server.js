@@ -48,7 +48,13 @@ app.get('/', (req, res) => {
   res.send('Welcome to SheHope API!');
 });
 
-
+app.listen(port, () => {
+  const serverUrl = process.env.NODE_ENV === 'production'
+    ? `https://shehope-server-1.onrender.com`
+    : `http://localhost:${port}`;
+    
+  console.log(`🚀 Server running on ${serverUrl}`);
+});
 
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
