@@ -22,7 +22,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: ["http://localhost:5173","https://ishimwediane.github.io"
+    origin: ["http://localhost:5173","https://ishimwediane.github.io","https://shehope-server-1.onrender.com"
       
     ],
      
@@ -56,6 +56,6 @@ app.listen(port, () => {
   console.log(`🚀 Server running on ${serverUrl}`);
 });
 
-app.listen(port, () => {
-  console.log(`🚀 Server running on http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`🚀 Server running on http://localhost:${port}`);
+// });
