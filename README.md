@@ -1,130 +1,211 @@
 
+# 🌸 SheHope API
 
-# SheHope Backend
+> Empowering young women with mental health support, legal aid, and community engagement.
 
-**SheHope Backend** serves as the server-side application for the SheHope platform, handling data management, user authentication, and business logic.
+## 🌐 Base URL
 
-## Table of Contents
+- **Local**: `http://localhost:5000`
+- **Production**: `https://shehope-server-1.onrender.com`
 
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Environment Variables](#environment-variables)
-  - [Running the Application](#running-the-application)
-- [API Endpoints](#api-endpoints)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+---
 
-## Project Overview
+## ⚙️ Setup Instructions
 
-SheHope is a platform dedicated to supporting individuals facing unintended pregnancies. The backend serves as the core of the application, managing user data, providing personalized recommendations, and facilitating various support services.
+```bash
+# 1. Clone the repository
+git clone https://github.com/IshimweDiane/shehope-server.git
 
-## Features
+# 2. Navigate into the project directory
+cd shehope-server
 
-- **User Authentication**: Secure endpoints for user registration, login, and profile management.
-- **Recommendation System**: Provide trimester-based recommendations tailored to user needs.
-- **Community Features**: Manage posts, comments, likes, and reports to foster community engagement.
-- **Legal Resources**: Serve legal documents and advice to assist users.
-- **Event Management**: Handle event scheduling and reminders for important dates.
-- **Donation System**: Process donation requests and contributions to support users.
-- **Admin Panel**: Admin functionalities to manage users, content, donations, and events.
+# 3. Install dependencies
+npm install
 
-## Tech Stack
-
-- **Backend Framework**: Node.js with Express.js
-- **Database**: MongoDB
-- **Authentication**: JSON Web Tokens (JWT)
-- **API Documentation**: Swagger
-- **Deployment**: Render
-
-## Getting Started
-
-To set up the SheHope Backend locally, follow these steps:
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (version 14 or higher)
-- [MongoDB](https://www.mongodb.com/try/download/community) (installed locally or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
-- [npm](https://www.npmjs.com/)
-
-### Installation
-
-1. **Clone the Repository**:
-
-   ```bash
-   git clone https://github.com/yourusername/shehope-backend.git
-   cd shehope-backend
-   ```
-
-2. **Install Dependencies**:
-
-   ```bash
-   npm install
-   ```
-
-### Environment Variables
-
-Create a `.env` file in the root directory and add the following variables:
-
-```
+# 4. Add your environment variables in a .env file
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
+
+# 5. Run the development server
+npm run dev
 ```
 
-Replace `your_mongodb_connection_string` and `your_jwt_secret` with your actual MongoDB URI and a secret key for JWT.
+---
 
-### Running the Application
+## 🔐 Authentication
 
-1. **Start the Development Server**:
+Protected routes require a Bearer token in headers:
 
-   ```bash
-   npm start
-   ```
+```
+Authorization: Bearer <your_jwt_token>
+```
 
-   The server will run on `http://localhost:5000`.
+---
 
-2. **Run in Production Mode**:
+## 📁 File Uploads
 
-   ```bash
-   npm run start:prod
-   ```
+Upload files via `multipart/form-data` using the `file` field.
 
-   Ensure that your environment variables are correctly set for production.
+---
 
-## API Endpoints
+## 📦 API Routes
 
-Here are some of the main API endpoints:
--`POST /api/user/register`: Register a new user.
-- `POST /api/admin/register`: Register a new user.
-- `POST /api/user/login`: Authenticate a user and receive a JWT.
-- `GET /api/recommendations`: Fetch trimester-based recommendations.
-- `POST /api/community/posts`: Create a new post.
-- `GET /api/community/posts`: Retrieve posts.
-- `POST /api/legal`: Submit legal inquiries.
-- `POST /api/events`: Schedule a new event.
-- `POST /api/donations`: Make a donation.
-- `GET /api/admin/users`: List all users (Admin only).
+### 👤 User Routes - `/api/user`
 
+| Method | Endpoint       | Description                 |
+|--------|----------------|-----------------------------|
+| POST   | `/register`    | Register a new user         |
+| POST   | `/login`       | Login and receive JWT token |
+| GET    | `/me`          | Get current user (auth)     |
 
+---
 
-## Deployment
+### 📝 Blog Routes - `/api/blogs`
 
-The backend is deployed on [Render](https://render.com/). The live API is accessible at [https://shehope-server.onrender.com](https://shehope-server.onrender.com).
+| Method | Endpoint     | Description                  |
+|--------|--------------|------------------------------|
+| GET    | `/`          | Get all blogs                |
+| POST   | `/create`    | Create blog (auth + file)    |
 
-## Contributing
+---
 
-We welcome contributions to improve the SheHope platform. To contribute:
+### 💡 Tips Routes - `/api/tips`
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-name`).
-3. Install dependencies (`npm install`).
-4. Implement your feature or fix.
-5. Run tests (`npm test`).
-6. Commit your changes (`git commit -am 'Add feature'`).
-7. Push to the branch (`git push origin feature-name`).
-8. Create a new Pull Request
+| Method | Endpoint  | Description                  |
+|--------|-----------|------------------------------|
+| GET    | `/`       | Get all tips                 |
+| POST   | `/`       | Create a new tip (auth)      |
+
+---
+
+### 📚 Blogs & Tips by Trimester - `/api/blogs-tips`
+
+| Method | Endpoint      | Description                   |
+|--------|---------------|-------------------------------|
+| GET    | `/blogs-tips` | Get tips & blogs by trimester |
+
+---
+
+### 🗓️ Event Routes - `/api/events`
+
+| Method | Endpoint   | Description                   |
+|--------|------------|-------------------------------|
+| GET    | `/`        | Get all events (auth)         |
+| POST   | `/`        | Create a new event (auth)     |
+| PUT    | `/:id`     | Update an event by ID (auth)  |
+| DELETE | `/:id`     | Delete an event by ID (auth)  |
+
+---
+
+### 🧑‍🤝‍🧑 Community Routes - `/api/posts`
+
+| Method | Endpoint                     | Description                   |
+|--------|------------------------------|-------------------------------|
+| GET    | `/`                          | Get all posts                 |
+| POST   | `/`                          | Create a new post (auth)      |
+| GET    | `/:postId`                   | Get single post by ID         |
+| POST   | `/like/:postId`              | Like a post (auth)            |
+| POST   | `/comment/:postId`           | Comment on a post (auth)      |
+| POST   | `/report/:postId`            | Report a post (auth)          |
+
+---
+
+### 🎁 Donation Routes - `/api/donations`
+
+| Method | Endpoint       | Description                            |
+|--------|----------------|----------------------------------------|
+| GET    | `/`            | Get all donations (admin only)         |
+| POST   | `/`            | Submit donation request (auth + file)  |
+| PUT    | `/:donationId` | Approve/Update donation (admin only)   |
+
+---
+
+### 🛠️ Admin Routes - `/api/admin` (auth required)
+
+#### 👥 Users
+
+| Method | Endpoint        | Description         |
+|--------|-----------------|---------------------|
+| GET    | `/users`        | View all users      |
+| PUT    | `/users/:id`    | Update user         |
+| DELETE | `/users/:id`    | Delete user         |
+
+#### 📩 Posts & Reports
+
+| Method | Endpoint                                                  | Description              |
+|--------|-----------------------------------------------------------|--------------------------|
+| GET    | `/posts`                                                  | View all posts           |
+| PUT    | `/posts/:postId/reports/:reportId/resolve`                | Resolve reported post    |
+| DELETE | `/posts/:postId`                                          | Delete a post            |
+| DELETE | `/posts/:postId/comments/:commentId`                      | Delete a comment         |
+
+#### 📝 Blogs
+
+| Method | Endpoint     | Description      |
+|--------|--------------|------------------|
+| POST   | `/blogs`     | Create a blog    |
+| GET    | `/blogs`     | Get all blogs    |
+| PUT    | `/blogs/:id` | Update blog      |
+| DELETE | `/blogs/:id` | Delete blog      |
+
+#### 💡 Tips
+
+| Method | Endpoint    | Description     |
+|--------|-------------|-----------------|
+| POST   | `/tips`     | Create a tip    |
+| GET    | `/tips`     | Get all tips    |
+| PUT    | `/tips/:id` | Update a tip    |
+| DELETE | `/tips/:id` | Delete a tip    |
+
+#### 🗓️ Events
+
+| Method | Endpoint      | Description       |
+|--------|---------------|-------------------|
+| GET    | `/event`      | Get all events    |
+| POST   | `/event`      | Create an event   |
+| PUT    | `/events/:id` | Update an event   |
+| DELETE | `/events/:id` | Delete an event   |
+
+---
+
+## 🧪 Testing the API
+
+Use [Postman](https://www.postman.com/) 
+
+### Headers
+
+```http
+Authorization: Bearer <your_token>
+Content-Type: application/json
+```
+
+---
+
+## 📂 Project Structure
+
+```
+shehope-server/
+├── Config/
+├── Controller/
+├── Middlewares/
+├── Models/
+├── Routes/
+├── uploads/
+├── server.js
+├── cronScheduler.js
+└── .env
+```
+
+---
+
+## 🙌 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss.
+
+---
+
+## 🧡 License
+
+MIT © 2025 SheHope Team
+```
