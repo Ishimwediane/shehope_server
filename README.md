@@ -1,18 +1,18 @@
 
-# 🌸 SheHope API
+ 🌸 SheHope API
 
 > Empowering young women with mental health support, legal aid, and community engagement.
 
-## 🌐 Base URL
+ 🌐 Base URL
 
-- **Local**: `http://localhost:5000`
-- **Production**: `https://shehope-server-1.onrender.com`
+- Local: `http://localhost:5000`
+- Production: `https://shehope-server-1.onrender.com`
 
 ---
 
-## ⚙️ Setup Instructions
+⚙️ Setup Instructions
 
-```bash
+
 # 1. Clone the repository
 git clone https://github.com/IshimweDiane/shehope-server.git
 
@@ -29,29 +29,24 @@ JWT_SECRET=your_jwt_secret
 
 # 5. Run the development server
 npm run dev
-```
 
----
 
-## 🔐 Authentication
+🔐 Authentication
 
 Protected routes require a Bearer token in headers:
 
-```
+
 Authorization: Bearer <your_jwt_token>
-```
 
----
 
-## 📁 File Uploads
+ 📁 File Uploads
 
 Upload files via `multipart/form-data` using the `file` field.
 
----
 
-## 📦 API Routes
+📦 API Routes
 
-### 👤 User Routes - `/api/user`
+👤 User Routes - `/api/user`
 
 | Method | Endpoint       | Description                 |
 |--------|----------------|-----------------------------|
@@ -59,35 +54,35 @@ Upload files via `multipart/form-data` using the `file` field.
 | POST   | `/login`       | Login and receive JWT token |
 | GET    | `/me`          | Get current user (auth)     |
 
----
 
-### 📝 Blog Routes - `/api/blogs`
+
+📝 Blog Routes - `/api/blogs`
 
 | Method | Endpoint     | Description                  |
 |--------|--------------|------------------------------|
 | GET    | `/`          | Get all blogs                |
 | POST   | `/create`    | Create blog (auth + file)    |
 
----
 
-### 💡 Tips Routes - `/api/tips`
+
+ 💡 Tips Routes - `/api/tips`
 
 | Method | Endpoint  | Description                  |
 |--------|-----------|------------------------------|
 | GET    | `/`       | Get all tips                 |
 | POST   | `/`       | Create a new tip (auth)      |
 
----
 
-### 📚 Blogs & Tips by Trimester - `/api/blogs-tips`
+
+📚 Blogs & Tips by Trimester - `/api/blogs-tips`
 
 | Method | Endpoint      | Description                   |
 |--------|---------------|-------------------------------|
 | GET    | `/blogs-tips` | Get tips & blogs by trimester |
 
----
 
-### 🗓️ Event Routes - `/api/events`
+
+🗓️ Event Routes - `/api/events`
 
 | Method | Endpoint   | Description                   |
 |--------|------------|-------------------------------|
@@ -96,9 +91,9 @@ Upload files via `multipart/form-data` using the `file` field.
 | PUT    | `/:id`     | Update an event by ID (auth)  |
 | DELETE | `/:id`     | Delete an event by ID (auth)  |
 
----
 
-### 🧑‍🤝‍🧑 Community Routes - `/api/posts`
+
+🧑‍🤝‍🧑 Community Routes - `/api/posts`
 
 | Method | Endpoint                     | Description                   |
 |--------|------------------------------|-------------------------------|
@@ -109,9 +104,9 @@ Upload files via `multipart/form-data` using the `file` field.
 | POST   | `/comment/:postId`           | Comment on a post (auth)      |
 | POST   | `/report/:postId`            | Report a post (auth)          |
 
----
 
-### 🎁 Donation Routes - `/api/donations`
+
+🎁 Donation Routes - `/api/donations`
 
 | Method | Endpoint       | Description                            |
 |--------|----------------|----------------------------------------|
@@ -119,11 +114,11 @@ Upload files via `multipart/form-data` using the `file` field.
 | POST   | `/`            | Submit donation request (auth + file)  |
 | PUT    | `/:donationId` | Approve/Update donation (admin only)   |
 
----
 
-### 🛠️ Admin Routes - `/api/admin` (auth required)
 
-#### 👥 Users
+🛠️ Admin Routes - `/api/admin` (auth required)
+
+👥 Users
 
 | Method | Endpoint        | Description         |
 |--------|-----------------|---------------------|
@@ -131,7 +126,7 @@ Upload files via `multipart/form-data` using the `file` field.
 | PUT    | `/users/:id`    | Update user         |
 | DELETE | `/users/:id`    | Delete user         |
 
-#### 📩 Posts & Reports
+ 📩 Posts & Reports
 
 | Method | Endpoint                                                  | Description              |
 |--------|-----------------------------------------------------------|--------------------------|
@@ -140,7 +135,7 @@ Upload files via `multipart/form-data` using the `file` field.
 | DELETE | `/posts/:postId`                                          | Delete a post            |
 | DELETE | `/posts/:postId/comments/:commentId`                      | Delete a comment         |
 
-#### 📝 Blogs
+ 📝 Blogs
 
 | Method | Endpoint     | Description      |
 |--------|--------------|------------------|
@@ -149,7 +144,7 @@ Upload files via `multipart/form-data` using the `file` field.
 | PUT    | `/blogs/:id` | Update blog      |
 | DELETE | `/blogs/:id` | Delete blog      |
 
-#### 💡 Tips
+💡 Tips
 
 | Method | Endpoint    | Description     |
 |--------|-------------|-----------------|
@@ -157,8 +152,7 @@ Upload files via `multipart/form-data` using the `file` field.
 | GET    | `/tips`     | Get all tips    |
 | PUT    | `/tips/:id` | Update a tip    |
 | DELETE | `/tips/:id` | Delete a tip    |
-
-#### 🗓️ Events
+ 🗓️ Events
 
 | Method | Endpoint      | Description       |
 |--------|---------------|-------------------|
@@ -167,45 +161,21 @@ Upload files via `multipart/form-data` using the `file` field.
 | PUT    | `/events/:id` | Update an event   |
 | DELETE | `/events/:id` | Delete an event   |
 
----
 
-## 🧪 Testing the API
+
+🧪 Testing the API
 
 Use [Postman](https://www.postman.com/) 
 
-### Headers
+ Headers
 
-```http
+http
 Authorization: Bearer <your_token>
 Content-Type: application/json
-```
 
----
 
-## 📂 Project Structure
-
-```
-shehope-server/
-├── Config/
-├── Controller/
-├── Middlewares/
-├── Models/
-├── Routes/
-├── uploads/
-├── server.js
-├── cronScheduler.js
-└── .env
-```
-
----
-
-## 🙌 Contributing
+🙌 Contributing
 
 Pull requests are welcome! For major changes, please open an issue first to discuss.
 
----
 
-## 🧡 License
-
-MIT © 2025 SheHope Team
-```
