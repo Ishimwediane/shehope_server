@@ -8,26 +8,28 @@
 - Local: `http://localhost:5000`
 - Production: `https://shehope-server-1.onrender.com`
 
----
+
 
 ⚙️ Setup Instructions
 
 
-# 1. Clone the repository
+1. Clone the repository
 git clone https://github.com/IshimweDiane/shehope-server.git
 
-# 2. Navigate into the project directory
+2. Navigate into the project directory
 cd shehope-server
 
-# 3. Install dependencies
+3. Install dependencies
 npm install
 
-# 4. Add your environment variables in a .env file
+4. Add your environment variables in a .env file
 PORT=5000
+
 MONGO_URI=your_mongodb_connection_string
+
 JWT_SECRET=your_jwt_secret
 
-# 5. Run the development server
+6. Run the development server
 npm run dev
 
 
